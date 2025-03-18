@@ -1,0 +1,41 @@
+.stadium-section {
+    fill: #e5e7eb;
+    stroke: #94a3b8;
+    stroke-width: 1;
+    cursor: pointer;
+    transition: fill 0.3s ease, stroke 0.3s ease;
+}
+
+.stadium-section:hover {
+    fill: #93c5fd;
+    stroke: #2563eb;
+    stroke-width: 2;
+}
+
+/* ✅ Empêcher tout mouvement lorsque la section est sélectionnée */
+.section-selected {
+    fill: #facc15 !important;
+    stroke: #eab308 !important;
+    stroke-width: 3;
+}
+
+/* ✅ Ajout d'une meilleure expérience pour le zoom */
+.stadium-svg-container {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    max-width: 100%;
+    max-height: 500px;
+    padding: 10px;
+    position: relative;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: grab;
+    transition: transform 0.3s ease-in-out;
+}
+
+.stadium-svg-container:active {
+    cursor: grabbing;
+}
