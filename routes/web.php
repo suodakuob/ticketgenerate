@@ -25,11 +25,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/matches/{match}', [MatchController::class, 'show'])->name('matches.show');
 
     // Gestion des tickets
-    Route::get('/my-tickets', [TicketController::class, 'index'])->name('my-tickets');
-    Route::post('/tickets', [TicketController::class, 'store'])->name('tickets.store');
-    Route::get('/tickets/{ticket}/download', [TicketController::class, 'download'])
-    ->name('tickets.download')
-    ->middleware('auth');
+    Route::middleware(['auth', 'verified'])->group(function () {
+        Route::get('/my-tickets', [TicketController::class, 'index'])->name('my-tickets');
+        Route::post('/tickets', [TicketController::class, 'store'])->name('tickets.store');
+        Route::get('/tickets/{ticket}/download', [TicketController::class, 'download'])
+            ->name('tickets.download')
+            ->middleware('auth');
+    });
+    
 
 });
 

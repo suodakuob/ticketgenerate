@@ -28,7 +28,7 @@
 
             <div class="qr-code">
                 <p><strong>Scan QR Code to Verify</strong></p>
-                <img src="{{ storage_path('app/public/' . $ticket->qr_code) }}" width="150">
+                <img src="{{ $qrBase64 }}" width="150">
             </div>
         </div>
     </div>

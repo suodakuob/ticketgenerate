@@ -35,10 +35,11 @@
                                             </span>
                                         </div>
                                         @if($ticket->status === 'confirmed')
-    <a href="{{ route('tickets.download', ['ticket' => $ticket->id]) }}" 
-       class="inline-flex items-center px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700">
-        Download E-Ticket
-    </a>
+                                        <a href="{{ route('tickets.download', ['ticket' => $ticket->id]) }}" 
+   class="inline-flex items-center px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700">
+    Download E-Ticket
+</a>
+
 @endif
 
                                     </div>
