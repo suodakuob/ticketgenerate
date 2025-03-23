@@ -49,7 +49,10 @@ class ChatbotController extends Controller
                     'messages' => [
                         [
                             'role' => 'system',
-                            'content' => "Tu es un assistant pour un site de billetterie de football. Réponds uniquement au format JSON comme ceci : {\"action\":\"match_price\", \"team\":\"Barca\"}."
+                            'content' => "Tu es un assistant pour un site de billetterie de football. Réponds uniquement au format JSON. Exemples :
+                            {\"action\":\"match_price\", \"team\":\"Barca\"}
+                            {\"action\":\"greeting\"}
+                            Si un utilisateur dit bonjour, réponds avec {\"action\":\"greeting\"}."
                         ],
                         ['role' => 'user', 'content' => $message],
                     ]
@@ -72,6 +75,10 @@ class ChatbotController extends Controller
         if (Str::contains(strtolower($message), ['match', 'matchs', 'venir', 'prochains'])) {
             return ['action' => 'upcoming_matches'];
         }
+         /*   if (Str::contains(strtolower($message), ['bonjour', 'salut', 'coucou', 'hello', 'hi'])) {
+            return ['action' => 'greeting'];
+        }*/
+        
 
         return ['action' => 'unknown'];
     }
@@ -118,7 +125,7 @@ class ChatbotController extends Controller
 
         return FootballMatch::where(function ($query) use ($team) {
             $query->where('home_team', 'like', "%$team%")
-                  ->orWhere('away_team', 'like', "%$team%");
+                ->orWhere('away_team', 'like', "%$team%");
         })->orderBy('match_date')->first();
     }
 
@@ -128,7 +135,7 @@ class ChatbotController extends Controller
 
         return FootballMatch::where(function ($query) use ($team) {
             $query->where('home_team', 'like', "%$team%")
-                  ->orWhere('away_team', 'like', "%$team%");
+                ->orWhere('away_team', 'like', "%$team%");
         })->orderBy('match_date')->get();
     }
 
@@ -136,14 +143,14 @@ class ChatbotController extends Controller
     {
         $match = $this->getMatchFromTeam($team);
         return $match ? "\ud83c\udfab Le billet pour {$match->home_team} vs {$match->away_team} est à \${$match->ticket_price}."
-                      : "\u274c Aucun match avec cette équipe trouvé dans notre base.";
+            : "\u274c Aucun match avec cette équipe trouvé dans notre base.";
     }
 
     private function getMatchLocation($team)
     {
         $match = $this->getMatchFromTeam($team);
         return $match ? "\ud83d\udccd Le match se joue au stade {$match->stadium}."
-                      : "\u274c Lieu introuvable : aucun match trouvé pour cette équipe.";
+            : "\u274c Lieu introuvable : aucun match trouvé pour cette équipe.";
     }
 
     private function getMatchDatesForTeam($team)
@@ -164,4 +171,15 @@ class ChatbotController extends Controller
     {
         return "Je n'ai pas compris votre demande. Vous pouvez par exemple me demander : 'Quel est le prix du match de l'Algérie ?', 'Quels sont les matchs à venir ?', ou 'Je veux voir mes billets'.";
     }
+
+     /*   private function getGreetingResponse()
+{
+    $greetings = [
+        "👋 Bonjour ! Comment puis-je vous aider aujourd'hui ?",
+        "🙌 Salut ! Vous cherchez des infos sur les matchs ?",
+        "⚽ Hello ! Dites-moi si vous voulez réserver un billet !",
+    ];
+
+    return $greetings[array_rand($greetings)];
+}*/
 }
