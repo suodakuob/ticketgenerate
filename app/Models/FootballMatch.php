@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use App\Models\Ticket;
 
 class FootballMatch extends Model
@@ -24,13 +24,13 @@ class FootballMatch extends Model
         'available_tickets',
         'description',
         'match_time',
-        'match_status'
+        'match_status',
     ];
 
     protected $casts = [
         'match_date' => 'datetime',
+        'match_time' => 'datetime',
         'ticket_price' => 'decimal:2',
-        'match_time' => 'datetime'
     ];
 
     public function tickets()
