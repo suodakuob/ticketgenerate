@@ -28,19 +28,19 @@ class TicketController extends Controller
             'match_id' => 'required|exists:matches,id',
             'quantity' => 'required|integer|min:1|max:10',
         ]);
-    
+
         $match = FootballMatch::findOrFail($request->match_id);
-    
+
         if ($match->available_tickets < $request->quantity) {
             return back()->with('error', 'Not enough tickets available.');
         }
-    
+
         // Assurer que le dossier public/qrcodes existe
         $qrDir = public_path('qrcodes');
         if (!file_exists($qrDir)) {
             mkdir($qrDir, 0775, true);
         }
-    
+
         $tickets = [];
         for ($i = 0; $i < $request->quantity; $i++) {
             $ticket = Ticket::create([
@@ -50,37 +50,38 @@ class TicketController extends Controller
                 'status' => 'confirmed',
                 'ticket_number' => 'TIX-' . Str::random(10),
             ]);
-    
+
             // Génération des données du QR Code (SANS ÉMOJIS, EN UTF-8)
-$qrData = utf8_encode("Ticket Information\n"
-. "Match: " . $match->home_team . " vs " . $match->away_team . "\n"
-. "Date: " . $match->match_date->format('F j, Y g:i A') . "\n"
-. "Stadium: " . $match->stadium . "\n"
-. "Ticket Number: " . $ticket->ticket_number . "\n"
-. "Status: " . ucfirst($ticket->status)
-);
+            $qrData = utf8_encode(
+                "Ticket Information\n"
+                    . "Match: " . $match->home_team . " vs " . $match->away_team . "\n"
+                    . "Date: " . $match->match_date->format('F j, Y g:i A') . "\n"
+                    . "Stadium: " . $match->stadium . "\n"
+                    . "Ticket Number: " . $ticket->ticket_number . "\n"
+                    . "Status: " . ucfirst($ticket->status)
+            );
 
-// Générer et enregistrer le QR Code
-$qrPath = 'qrcodes/' . $ticket->ticket_number . '.png';
-QrCode::format('png')->size(300)->encoding('UTF-8')->generate($qrData, public_path($qrPath));
+            // Générer et enregistrer le QR Code
+            $qrPath = 'qrcodes/' . $ticket->ticket_number . '.svg';
+            QrCode::format('svg')->size(300)->encoding('UTF-8')->generate($qrData, public_path($qrPath));
 
-    
+
             // Vérifier si le fichier QR Code a bien été généré
             if (!file_exists(public_path($qrPath))) {
                 dd("Erreur : Impossible de générer le QR Code !");
             }
-    
+
             // Mettre à jour le ticket avec le chemin du QR Code
             $ticket->update(['qr_code' => $qrPath]);
             $tickets[] = $ticket;
         }
-    
+
         // Mise à jour du nombre de tickets disponibles après achat
         $match->decrement('available_tickets', $request->quantity);
-    
+
         return redirect()->route('my-tickets')->with('success', 'Booking successful! Check your tickets below.');
     }
-    
+
 
     public function download(Ticket $ticket)
     {
