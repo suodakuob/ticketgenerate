@@ -15,6 +15,7 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans antialiased h-full">
+        
         <div class="min-h-screen bg-gray-100">
             <nav class="bg-green-600 border-b border-green-500 w-full">
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -23,7 +24,7 @@
                             <!-- Logo -->
                             <div class="shrink-0 flex items-center w-full">
                                 <a href="{{ route('home') }}" class="text-white font-bold text-xl">
-                                    tutorefootball
+                                    
                                 </a>
                             </div>
 

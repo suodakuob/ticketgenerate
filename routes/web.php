@@ -11,6 +11,8 @@ use App\Http\Controllers\Admin\MatchController as AdminMatchController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Middleware\SuperAdminMiddleware;
+use App\Http\Controllers\ChatbotController;
+
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -77,5 +79,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
         Route::get('users/{user}', [UserController::class, 'show'])->name('admin.users.show');
     });
 });
+
+Route::post('/chatbot/message', [ChatbotController::class, 'handle'])->name('chatbot.message');
+
 
 require __DIR__.'/auth.php';
