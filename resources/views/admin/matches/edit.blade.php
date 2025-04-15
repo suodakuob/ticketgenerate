@@ -16,7 +16,7 @@
                         <!-- Match Name -->
                         <div>
                             <x-input-label for="name" :value="__('Match Name')" />
-                            <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" 
+                            <x-text-input id="name" name="name" type="text" class="mt-1 block w-full"
                                         :value="old('name', $match->name)" required />
                             <x-input-error :messages="$errors->get('name')" class="mt-2" />
                         </div>
@@ -24,7 +24,7 @@
                         <!-- Home Team -->
                         <div>
                             <x-input-label for="home_team" :value="__('Home Team')" />
-                            <x-text-input id="home_team" name="home_team" type="text" class="mt-1 block w-full" 
+                            <x-text-input id="home_team" name="home_team" type="text" class="mt-1 block w-full"
                                         :value="old('home_team', $match->home_team)" required />
                             <x-input-error :messages="$errors->get('home_team')" class="mt-2" />
                         </div>
@@ -32,7 +32,7 @@
                         <!-- Away Team -->
                         <div>
                             <x-input-label for="away_team" :value="__('Away Team')" />
-                            <x-text-input id="away_team" name="away_team" type="text" class="mt-1 block w-full" 
+                            <x-text-input id="away_team" name="away_team" type="text" class="mt-1 block w-full"
                                         :value="old('away_team', $match->away_team)" required />
                             <x-input-error :messages="$errors->get('away_team')" class="mt-2" />
                         </div>
@@ -40,7 +40,7 @@
                         <!-- Match Date -->
                         <div>
                             <x-input-label for="match_date" :value="__('Match Date')" />
-                            <x-text-input id="match_date" name="match_date" type="date" class="mt-1 block w-full" 
+                            <x-text-input id="match_date" name="match_date" type="date" class="mt-1 block w-full"
                                         :value="old('match_date', $match->match_date)" required />
                             <x-input-error :messages="$errors->get('match_date')" class="mt-2" />
                         </div>
@@ -48,7 +48,7 @@
                         <!-- Match Time -->
                         <div>
                             <x-input-label for="match_time" :value="__('Match Time')" />
-                            <x-text-input id="match_time" name="match_time" type="time" class="mt-1 block w-full" 
+                            <x-text-input id="match_time" name="match_time" type="time" class="mt-1 block w-full"
                                         :value="old('match_time', $match->match_time)" required />
                             <x-input-error :messages="$errors->get('match_time')" class="mt-2" />
                         </div>
@@ -56,7 +56,7 @@
                         <!-- Stadium -->
                         <div>
                             <x-input-label for="stadium" :value="__('Stadium')" />
-                            <x-text-input id="stadium" name="stadium" type="text" class="mt-1 block w-full" 
+                            <x-text-input id="stadium" name="stadium" type="text" class="mt-1 block w-full"
                                         :value="old('stadium', $match->stadium)" required />
                             <x-input-error :messages="$errors->get('stadium')" class="mt-2" />
                         </div>
@@ -68,8 +68,8 @@
                                 <div class="text-center">
                                     @if($match->stadium_image)
                                         <div class="mb-4">
-                                            <img src="{{ asset('storage/' . $match->stadium_image) }}" 
-                                                 alt="Current stadium image" 
+                                            <img src="{{ asset('storage/' . $match->stadium_image) }}"
+                                                 alt="Current stadium image"
                                                  class="mx-auto h-32 w-auto object-cover rounded-lg shadow-md">
                                             <p class="mt-2 text-sm text-gray-500">Current image: {{ basename($match->stadium_image) }}</p>
                                         </div>
@@ -101,7 +101,7 @@
                         <!-- Available Tickets -->
                         <div>
                             <x-input-label for="available_tickets" :value="__('Available Tickets')" />
-                            <x-text-input id="available_tickets" name="available_tickets" type="number" min="0" class="mt-1 block w-full" 
+                            <x-text-input id="available_tickets" name="available_tickets" type="number" min="0" class="mt-1 block w-full"
                                         :value="old('available_tickets', $match->available_tickets)" required />
                             <x-input-error :messages="$errors->get('available_tickets')" class="mt-2" />
                         </div>
@@ -111,7 +111,7 @@
                             <x-input-label for="ticket_price" :value="__('Ticket Price')" />
                             <div class="flex items-center">
                                 <span class="text-gray-500 mr-2">£</span>
-                                <x-text-input id="ticket_price" name="ticket_price" type="number" step="0.01" min="0" class="mt-1 block w-full" 
+                                <x-text-input id="ticket_price" name="ticket_price" type="number" step="0.01" min="0" class="mt-1 block w-full"
                                             :value="old('ticket_price', $match->ticket_price)" required />
                             </div>
                             <x-input-error :messages="$errors->get('ticket_price')" class="mt-2" />
@@ -136,13 +136,15 @@
                             <x-input-error :messages="$errors->get('match_status')" class="mt-2" />
                         </div>
 
-                        <div class="flex items-center justify-end mt-4">
-                            <x-secondary-button onclick="window.history.back()" type="button" class="mr-3">
-                                {{ __('Cancel') }}
-                            </x-secondary-button>
-                            <x-primary-button>
-                                {{ __('Update Match') }}
-                            </x-primary-button>
+                        <div class="flex justify-end space-x-4">
+                            <a href="{{ route('admin.matches.sections', $match) }}"
+                               class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                                Manage Sections
+                            </a>
+                            <button type="submit"
+                                class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                                Save Changes
+                            </button>
                         </div>
                     </form>
                 </div>

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Ticket;
+use App\Models\Section;
 
 class FootballMatch extends Model
 {
@@ -25,16 +26,26 @@ class FootballMatch extends Model
         'description',
         'match_time',
         'match_status',
+        'stadium_map_data', // JSON data for stadium sections
     ];
 
     protected $casts = [
         'match_date' => 'datetime',
         'match_time' => 'datetime',
         'ticket_price' => 'decimal:2',
+        'stadium_map_data' => 'array',
     ];
 
     public function tickets()
     {
         return $this->hasMany(Ticket::class, 'match_id');
+    }
+
+    /**
+     * Get the sections for the match.
+     */
+    public function sections()
+    {
+        return $this->hasMany(Section::class, 'match_id');
     }
 }

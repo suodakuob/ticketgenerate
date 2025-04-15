@@ -1,41 +1,271 @@
-.stadium-section {
-    fill: #e5e7eb;
-    stroke: #94a3b8;
-    stroke-width: 1;
-    cursor: pointer;
-    transition: fill 0.3s ease, stroke 0.3s ease;
-}
-
-.stadium-section:hover {
-    fill: #93c5fd;
-    stroke: #2563eb;
-    stroke-width: 2;
-}
-
-/* ✅ Empêcher tout mouvement lorsque la section est sélectionnée */
-.section-selected {
-    fill: #facc15 !important;
-    stroke: #eab308 !important;
-    stroke-width: 3;
-}
-
-/* ✅ Ajout d'une meilleure expérience pour le zoom */
+/* Stadium SVG container */
 .stadium-svg-container {
+    transform-origin: center;
+    transition: transform 0.3s ease;
+    cursor: move;
+    user-select: none;
     overflow: hidden;
-    border: 1px solid #ccc;
+    border: 1px solid #e2e8f0;
     border-radius: 8px;
+    background-color: #f8fafc;
+    padding: 20px;
     max-width: 100%;
-    max-height: 500px;
-    padding: 10px;
-    position: relative;
-    background-color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: grab;
-    transition: transform 0.3s ease-in-out;
+    max-height: 600px;
 }
 
-.stadium-svg-container:active {
-    cursor: grabbing;
+/* Default section style */
+.stadium-section {
+    fill: #e5e5e5;
+    stroke: #666;
+    stroke-width: 0.5;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+/* Available sections */
+.section-available {
+    fill: #93c5fd;
+    stroke: #3b82f6;
+}
+
+.section-available:hover {
+    fill: #60a5fa;
+    stroke: #2563eb;
+    filter: drop-shadow(0px 0px 2px rgba(37, 99, 235, 0.5));
+}
+
+/* Selected sections */
+.section-selected {
+    fill: #34d399;
+    stroke: #10b981;
+    filter: drop-shadow(0px 0px 3px rgba(16, 185, 129, 0.6));
+}
+
+/* Unavailable or sold out sections */
+.section-unavailable {
+    fill: #d1d5db;
+    stroke: #9ca3af;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+/* Unknown sections (not in database) */
+.section-unknown {
+    fill: #f3f4f6;
+    stroke: #d1d5db;
+    cursor: default;
+    opacity: 0.5;
+}
+
+/* Section tooltip */
+.section-tooltip {
+    position: absolute;
+    display: none;
+    background-color: white;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 12px;
+    color: #374151;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+    pointer-events: none;
+    white-space: nowrap;
+}
+
+.section-name {
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.section-price {
+    font-weight: 600;
+    color: #047857;
+}
+
+.stadium-section:hover .section-tooltip {
+    display: block;
+    transform: translate(15px, -100%);
+}
+
+/* Controls */
+.stadium-controls {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    gap: 8px;
+}
+
+.control-button {
+    background-color: white;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+    padding: 6px 10px;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+    transition: all 0.2s ease;
+}
+
+.control-button:hover {
+    background-color: #f9fafb;
+    border-color: #9ca3af;
+}
+
+/* Section info panel */
+.section-info-panel {
+    margin-top: 20px;
+    padding: 16px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+}
+
+/* Section alert message */
+.section-alert {
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Section popup styles */
+#section-popup {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.9);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    z-index: 100;
+}
+
+#section-popup:not(.hidden) {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+/* Stadium section styles */
+.stadium-section {
+    cursor: pointer;
+    transition: fill 0.3s ease;
+}
+
+.section-available {
+    fill: #4CAF50;
+    opacity: 0.7;
+}
+
+.section-available:hover,
+.section-selected {
+    fill: #2E7D32;
+    opacity: 1;
+    filter: drop-shadow(0 0 4px rgba(46, 125, 50, 0.6));
+}
+
+.section-unavailable {
+    fill: #F44336;
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.section-unknown {
+    fill: #BDBDBD;
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Tooltip styles */
+.section-tooltip {
+    position: absolute;
+    left: 50%;
+    bottom: 100%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 10;
+}
+
+.stadium-section:hover .section-tooltip {
+    opacity: 1;
+}
+
+.section-name {
+    font-weight: bold;
+    margin-bottom: 2px;
+}
+
+.section-type {
+    text-transform: uppercase;
+    font-size: 10px;
+    margin-bottom: 2px;
+}
+
+/* 360 View Modal */
+#view-360-modal {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s;
+}
+
+#view-360-modal:not(.hidden) {
+    opacity: 1;
+    visibility: visible;
+}
+
+#view-360-btn {
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+#view-360-btn::after {
+    content: '';
+    position: absolute;
+    top: -3px;
+    right: -3px;
+    width: 8px;
+    height: 8px;
+    background-color: #10B981;
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+    }
+
+    70% {
+        transform: scale(1);
+        box-shadow: 0 0 0 6px rgba(16, 185, 129, 0);
+    }
+
+    100% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+    }
+}
+
+/* Pannellum Customization */
+.pnlm-container {
+    background: #f8fafc !important;
+}
+
+.pnlm-controls {
+    opacity: 0.8 !important;
+}
+
+.pnlm-load-box {
+    background: rgba(0, 0, 0, 0.7) !important;
 }

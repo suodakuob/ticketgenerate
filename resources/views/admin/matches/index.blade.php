@@ -56,7 +56,7 @@
                                             <div class="text-sm text-gray-900">£{{ number_format($match->ticket_price, 2) }}</div>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
-                                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
+                                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full
                                                 {{ $match->available_tickets > 0 ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
                                                 {{ $match->available_tickets > 0 ? 'Available' : 'Sold Out' }}
                                             </span>
@@ -69,11 +69,15 @@
                                                 </svg>
                                                 View
                                             </a>
-                                            <a href="{{ route('admin.matches.edit', $match) }}" class="inline-flex items-center text-indigo-600 hover:text-indigo-900">
-                                                <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                            <a href="{{ route('admin.matches.sections', $match) }}" class="text-blue-600 hover:text-blue-800 transition">
+                                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                                                 </svg>
-                                                Edit
+                                            </a>
+                                            <a href="{{ route('admin.matches.edit', $match) }}" class="text-indigo-600 hover:text-indigo-800 transition">
+                                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                                                </svg>
                                             </a>
                                             <form class="inline-block" action="{{ route('admin.matches.destroy', $match) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this match?');">
                                                 @csrf
@@ -91,7 +95,7 @@
                             </tbody>
                         </table>
                     </div>
-                    
+
                     <div class="mt-4">
                         {{ $matches->links() }}
                     </div>

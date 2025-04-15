@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Middleware\SuperAdminMiddleware;
 use App\Http\Controllers\ChatbotController;
+use Illuminate\Support\Facades\Auth;
 
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -25,6 +26,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Gestion des matchs
     Route::get('/matches', [MatchController::class, 'index'])->name('matches.index');
     Route::get('/matches/{match}', [MatchController::class, 'show'])->name('matches.show');
+    Route::get('/matches/{match}/sections', [MatchController::class, 'sections'])->name('matches.sections');
 
     // Gestion des tickets
     Route::middleware(['auth', 'verified'])->group(function () {
@@ -33,14 +35,17 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/tickets/{ticket}/download', [TicketController::class, 'download'])
             ->name('tickets.download')
             ->middleware('auth');
+
+        // Add this new route for purchasing tickets by section
+        Route::post('/matches/{match}/purchase', [TicketController::class, 'purchase'])->name('tickets.purchase');
     });
-    
+
 
 });
 
 // Déconnexion
 Route::post('/logout', function () {
-    auth()->logout();
+    Auth::logout();
     request()->session()->invalidate();
     request()->session()->regenerateToken();
     return redirect()->route('home');
@@ -77,6 +82,14 @@ Route::middleware(['auth', 'admin'])->group(function () {
             'destroy' => 'admin.users.destroy',
         ])->except(['show']);
         Route::get('users/{user}', [UserController::class, 'show'])->name('admin.users.show');
+
+        // New section management routes
+        Route::get('/matches/{match}/sections', [App\Http\Controllers\Admin\MatchController::class, 'manageSections'])->name('admin.matches.sections');
+        Route::post('/matches/{match}/sections', [App\Http\Controllers\Admin\MatchController::class, 'storeSections'])->name('admin.matches.sections.store');
+        Route::delete('/matches/{match}/sections/{sectionId}', [App\Http\Controllers\Admin\MatchController::class, 'deleteSection'])->name('admin.matches.sections.delete');
+
+        // Route for uploading 360° images
+        Route::post('/matches/{match}/sections/upload360', [App\Http\Controllers\Admin\MatchController::class, 'upload360'])->name('admin.sections.upload360');
     });
 });
 

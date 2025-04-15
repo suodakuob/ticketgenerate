@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Models\User;
 use App\Models\FootballMatch;
 use App\Models\Payment;
+use App\Models\Section;
 
 class Ticket extends Model
 {
@@ -15,13 +16,14 @@ class Ticket extends Model
     protected $fillable = [
         'user_id',
         'match_id',
+        'section_id',
         'seat_number',
         'price',
         'status',
         'ticket_number',
         'qr_code', // 🔴 Assurez-vous que ce champ est bien là
     ];
-    
+
 
     protected $casts = [
         'price' => 'decimal:2'
@@ -35,6 +37,11 @@ class Ticket extends Model
     public function match()
     {
         return $this->belongsTo(FootballMatch::class, 'match_id');
+    }
+
+    public function section()
+    {
+        return $this->belongsTo(Section::class, 'section_id');
     }
 
     public function payment()
