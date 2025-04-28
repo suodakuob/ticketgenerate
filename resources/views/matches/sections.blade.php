@@ -84,7 +84,7 @@
                                                 {{ $section->available_seats }} / {{ $section->capacity }}
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                                £{{ number_format($section->price, 2) }}
+                                                Mad {{ number_format($section->price, 2) }}
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                                                 @if($section->view_360_url)
@@ -267,7 +267,7 @@
         function openPurchaseModal(sectionId, sectionName, price) {
             document.getElementById('section_id').value = sectionId;
             document.getElementById('sectionName').textContent = sectionName;
-            document.getElementById('ticketPrice').textContent = '£' + parseFloat(price).toFixed(2);
+            document.getElementById('ticketPrice').textContent = 'Mad ' + parseFloat(price).toFixed(2);
             updateTotalPrice(price);
 
             document.getElementById('purchaseModal').classList.remove('hidden');
@@ -285,7 +285,7 @@
         function updateTotalPrice(price) {
             const quantity = document.getElementById('quantity').value;
             const total = parseFloat(price) * parseInt(quantity);
-            document.getElementById('totalPrice').textContent = '£' + total.toFixed(2);
+            document.getElementById('totalPrice').textContent = 'Mad ' + total.toFixed(2);
         }
 
         // 360° View functionality

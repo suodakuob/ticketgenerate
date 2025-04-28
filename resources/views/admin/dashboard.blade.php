@@ -22,7 +22,7 @@
             </div>
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
                 <h3 class="text-lg font-medium text-gray-900 mb-2">Total Sales</h3>
-                <p class="text-3xl font-bold text-green-600">£{{ number_format($stats['total_sales'], 2) }}</p>
+                <p class="text-3xl font-bold text-green-600">Mad {{ number_format($stats['total_sales'], 2) }}</p>
             </div>
         </div>
 
@@ -93,7 +93,7 @@
                                     <td class="px-6 py-4 whitespace-nowrap">{{ $ticket->match->home_team }} vs {{ $ticket->match->away_team }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap">{{ $ticket->user->name }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap">{{ $ticket->quantity }}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap">£{{ number_format($ticket->total_price, 2) }}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">Mad {{ number_format($ticket->total_price, 2) }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         @php
                                             // Debug : affiche la valeur de $ticket->status

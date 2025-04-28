@@ -62,7 +62,7 @@
                                 </div>
 
                                 <!-- Prix total affiché -->
-                                <p class="mt-2 text-gray-600">Prix total : <span id="totalPrice">£{{ number_format($match->ticket_price, 2) }}</span></p>
+                                <p class="mt-2 text-gray-600">Prix total : <span id="totalPrice">Mad {{ number_format($match->ticket_price, 2) }}</span></p>
 
                                 <button type="submit" id="reserve-button" disabled
                                     class="mt-4 bg-gray-400 text-white font-bold py-3 px-4 rounded cursor-not-allowed transition disabled:opacity-50">
@@ -118,7 +118,7 @@
             }
 
             const totalPrice = price * quantity;
-            document.getElementById('totalPrice').textContent = '£' + totalPrice.toFixed(2);
+            document.getElementById('totalPrice').textContent = 'Mad ' + totalPrice.toFixed(2);
         }
 
         // 360° view functionality

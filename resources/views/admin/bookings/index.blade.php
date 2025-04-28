@@ -58,12 +58,12 @@
                                             </div>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                            ${{ number_format($booking->price, 2) }}
+                                            Mad {{ number_format($booking->price, 2) }}
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
-                                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
-                                                {{ $booking->status === 'confirmed' ? 'bg-green-100 text-green-800' : 
-                                                   ($booking->status === 'cancelled' ? 'bg-red-100 text-red-800' : 
+                                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full
+                                                {{ $booking->status === 'confirmed' ? 'bg-green-100 text-green-800' :
+                                                   ($booking->status === 'cancelled' ? 'bg-red-100 text-red-800' :
                                                    'bg-yellow-100 text-yellow-800') }}">
                                                 {{ ucfirst($booking->status) }}
                                             </span>

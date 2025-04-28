@@ -8,11 +8,13 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\BookingController;
 use App\Http\Controllers\Admin\MatchController as AdminMatchController;
+use App\Http\Controllers\ArduinoSerialController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Middleware\SuperAdminMiddleware;
 use App\Http\Controllers\ChatbotController;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\ArduinoPythonController;
 
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -95,5 +97,11 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
 Route::post('/chatbot/message', [ChatbotController::class, 'handle'])->name('chatbot.message');
 
+Route::prefix('arduino')->group(function () {
+    Route::get('/ports', [ArduinoPythonController::class, 'listPorts']);
+    Route::get('/connect', [ArduinoPythonController::class, 'connect']);
+    Route::get('/read', [ArduinoPythonController::class, 'read']);
+    Route::get('/disconnect', [ArduinoPythonController::class, 'disconnect']);
+});
 
 require __DIR__.'/auth.php';

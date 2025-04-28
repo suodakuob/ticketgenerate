@@ -53,7 +53,7 @@
                                             <div class="text-sm text-gray-900">{{ $match->stadium }}</div>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
-                                            <div class="text-sm text-gray-900">£{{ number_format($match->ticket_price, 2) }}</div>
+                                            <div class="text-sm text-gray-900">Mad {{ number_format($match->ticket_price, 2) }}</div>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full

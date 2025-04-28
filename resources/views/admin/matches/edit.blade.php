@@ -110,7 +110,7 @@
                         <div>
                             <x-input-label for="ticket_price" :value="__('Ticket Price')" />
                             <div class="flex items-center">
-                                <span class="text-gray-500 mr-2">£</span>
+                                <span class="text-gray-500 mr-2">Mad </span>
                                 <x-text-input id="ticket_price" name="ticket_price" type="number" step="0.01" min="0" class="mt-1 block w-full"
                                             :value="old('ticket_price', $match->ticket_price)" required />
                             </div>

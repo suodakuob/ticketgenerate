@@ -10,14 +10,14 @@
     <!-- Stadium Image -->
     @if($match->stadium_image)
         <div class="w-full h-48 overflow-hidden">
-            <img src="{{ asset('storage/' . $match->stadium_image) }}" 
-                 alt="{{ $match->stadium }}" 
+            <img src="{{ asset('storage/' . $match->stadium_image) }}"
+                 alt="{{ $match->stadium }}"
                  class="w-full h-full object-cover">
         </div>
     @else
         <div class="w-full h-48 bg-gray-200 flex items-center justify-center">
             <svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                       d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h14a2 2 0 012 2v14a2 2 0 01-2 2zM9 7h6M9 11h6M9 15h6"/>
             </svg>
         </div>
@@ -51,18 +51,18 @@
                 {{ \Carbon\Carbon::parse($match->match_date)->format('F j, Y') }}
             </div>
             <div class="text-green-600 font-bold">
-                ${{ number_format($match->ticket_price, 2) }}
+                Mad {{ number_format($match->ticket_price, 2) }}
             </div>
         </div>
 
         <!-- Book Button -->
         @auth
-            <a href="{{ route('matches.show', $match) }}" 
+            <a href="{{ route('matches.show', $match) }}"
                class="block w-full text-center bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors duration-200">
                 Book Now
             </a>
         @else
-            <a href="{{ route('login') }}" 
+            <a href="{{ route('login') }}"
                class="block w-full text-center bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors duration-200">
                 Book Now
             </a>
