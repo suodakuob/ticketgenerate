@@ -6,12 +6,12 @@
             <div class="absolute inset-0 z-0">
                 <div class="absolute inset-0 bg-gradient-to-r from-green-600 to-green-800 opacity-90"></div>
             </div>
-            
+
             <!-- Content -->
             <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32">
                 <div class="text-center">
                     <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-8 leading-tight">
-                        tutorefootball - The Tickets Hub !
+                        Ticket 360football - The Tickets Hub !
                     </h1>
                     <p class="text-xl text-green-100 mb-12 max-w-2xl mx-auto">
                         Book your seats for the most exciting matches
@@ -23,7 +23,7 @@
         <!-- Matches Grid -->
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
             <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center">Matches Played Soon</h2>
-            
+
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 @foreach($matches as $match)
                     <x-match-card :match="$match" />
@@ -44,7 +44,7 @@
                         <h3 class="text-lg font-semibold mb-2">Quick Booking</h3>
                         <p class="text-gray-600">Book your tickets in minutes with our easy-to-use platform</p>
                     </div>
-                    
+
                     <div class="text-center">
                         <div class="w-12 h-12 mx-auto text-green-600 mb-4">
                             <svg class="w-full h-full" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -54,7 +54,7 @@
                         <h3 class="text-lg font-semibold mb-2">Secure Payments</h3>
                         <p class="text-gray-600">Your transactions are protected with industry-standard security</p>
                     </div>
-                    
+
                     <div class="text-center">
                         <div class="w-12 h-12 mx-auto text-green-600 mb-4">
                             <svg class="w-full h-full" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -76,7 +76,7 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 text-center md:text-left justify-items-center md:justify-items-start">
             <!-- Company Info -->
             <div class=text-green-500 max-w-sm">
-                <h4 class="text-lg font-semibold mb-4">About tutorefootball</h4>
+                <h4 class="text-lg font-semibold mb-4">About Ticket 360football</h4>
                 <p class="text-white">Your trusted source for football match tickets. Making it easy to attend the games you love.</p>
             </div>
 
@@ -100,7 +100,7 @@
                         <path fill-rule="evenodd" d="M5.478 5.559A1.5 1.5 0 0 1 6.912 4.5H9A.75.75 0 0 0 9 3H6.912a3 3 0 0 0-2.868 2.118l-2.411 7.838a3 3 0 0 0-.133.882V18a3 3 0 0 0 3 3h15a3 3 0 0 0 3-3v-4.162c0-.299-.045-.596-.133-.882l-2.412-7.838A3 3 0 0 0 17.088 3H15a.75.75 0 0 0 0 1.5h2.088a1.5 1.5 0 0 1 1.434 1.059l2.213 7.191H17.89a3 3 0 0 0-2.684 1.658l-.256.513a1.5 1.5 0 0 1-1.342.829h-3.218a1.5 1.5 0 0 1-1.342-.83l-.256-.512a3 3 0 0 0-2.684-1.658H3.265l2.213-7.191Z" clip-rule="evenodd"/>
                         <path fill-rule="evenodd" d="M12 2.25a.75.75 0 0 1 .75.75v6.44l1.72-1.72a.75.75 0 1 1 1.06 1.06l-3 3a.75.75 0 0 1-1.06 0l-3-3a.75.75 0 0 1 1.06-1.06l1.72 1.72V3a.75.75 0 0 1 .75-.75Z" clip-rule="evenodd"/>
                     </svg>
-                        support@tutorefootball.com
+                        support@Ticket 360football.com
                     </li>
 
                     <li class="text-white flex items-center gap-2">
@@ -124,7 +124,7 @@
 
 
         <div class="mt-8 border-t border-green-500 pt-5 text-center text-white">
-            Powered by tutorefootball
+            Powered by Ticket 360football
         </div>
     </div>
         </footer>
@@ -162,7 +162,7 @@
 
             </div>
             <div class="mt-8 md:order-1 md:mt-0">
-                <p class="text-center text-xs leading-5 text-gray-500">&copy; 2025 tutorefootball. All rights reserved.</p>
+                <p class="text-center text-xs leading-5 text-gray-500">&copy; 2025 Ticket 360football. All rights reserved.</p>
             </div>
         </div>
     </footer>

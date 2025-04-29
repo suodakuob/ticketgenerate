@@ -6,7 +6,7 @@
 
 <div id="chatbot" class="fixed bottom-24 right-4 w-80 max-w-[90vw] h-96 bg-white border border-gray-300 shadow-2xl rounded-xl hidden z-50 flex flex-col overflow-hidden">
     <div class="p-3 bg-green-600 text-white font-bold text-sm flex justify-between items-center">
-        Assistant Tutore 🤖
+        Assistant Ticket 360 🤖
         <button onclick="toggleChatbot()" class="text-white text-lg">×</button>
     </div>
     <div id="chat-messages" class="flex-1 overflow-y-auto p-3 space-y-2 bg-gray-50 text-sm scroll-smooth"></div>
