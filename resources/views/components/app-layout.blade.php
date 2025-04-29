@@ -64,7 +64,7 @@
                                             <svg class="w-5 h-5 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8V7a4 4 0 00-8 0v4h8z" />
                                             </svg>
-                                            Please 
+                                            Please
                                             <a href="{{ route('login') }}" class="text-white hover:text-green-100 font-medium">Login</a>
                                             or
                                             <a href="{{ route('register') }}" class="text-white hover:text-green-100 font-medium">Register</a>
@@ -82,8 +82,8 @@
 
                         <div class="relative " x-data="{ open: false }">
                             <button @click="open = !open" class="flex items-center space-x-3 hover:bg-opacity-30 hover:bg-white rounded-full p-2.5 focus:outline-none">
-                                <img class="h-8 w-8 rounded-full object-cover border-2 {{ $darkMode ? 'border-gray-600' : 'border-gray-200' }}" 
-                                     src="https://ui-avatars.com/api/?name={{ auth()->user()->name }}" 
+                                <img class="h-8 w-8 rounded-full object-cover border-2 {{ $darkMode ? 'border-gray-600' : 'border-gray-200' }}"
+                                     src="https://ui-avatars.com/api/?name={{ auth()->user()->name }}"
                                      alt="{{ auth()->user()->name }}">
                                 <div class="hidden md:flex md:items-center md:space-x-2 ">
                                     <span class="text-sm font-medium {{ $darkMode ? 'text-gray-100' : 'text-white' }}">{{ auth()->user()->name }}</span>
@@ -94,7 +94,7 @@
                             </button>
 
                         <!-- Dropdown Menu -->
-                            <div x-show="open" 
+                            <div x-show="open"
                                  @click.away="open = false"
                                  x-transition:enter="transition ease-out duration-100"
                                  x-transition:enter-start="transform opacity-0 scale-95"
@@ -226,6 +226,7 @@
             </main>
         </div>
         <x-chatbot-widget />
+        <x-general-chatbot-widget />
 
     </body>
 </html>

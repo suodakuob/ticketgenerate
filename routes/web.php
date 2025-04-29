@@ -15,7 +15,7 @@ use App\Http\Middleware\SuperAdminMiddleware;
 use App\Http\Controllers\ChatbotController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ArduinoPythonController;
-
+use App\Http\Controllers\GeneralChatbotController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -96,6 +96,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
 });
 
 Route::post('/chatbot/message', [ChatbotController::class, 'handle'])->name('chatbot.message');
+Route::post('/chatbot/general', [GeneralChatbotController::class, 'handle'])->name('chatbot.general');
 
 Route::prefix('arduino')->group(function () {
     Route::get('/ports', [ArduinoPythonController::class, 'listPorts']);
@@ -103,5 +104,6 @@ Route::prefix('arduino')->group(function () {
     Route::get('/read', [ArduinoPythonController::class, 'read']);
     Route::get('/disconnect', [ArduinoPythonController::class, 'disconnect']);
 });
+
 
 require __DIR__.'/auth.php';

@@ -50,6 +50,12 @@ class ArduinoReader:
                             "data": response.strip(),
                             "time_taken": round(time.time() - start_time, 2)
                         }
+                    if "nothing" in line:
+                        return {
+                            "status": "error",
+                            "data": response.strip(),
+                            "time_taken": round(time.time() - start_time, 2)
+                        }
 
                 time.sleep(0.1)  # Small delay to prevent CPU overuse
 

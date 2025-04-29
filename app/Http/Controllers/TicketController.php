@@ -64,7 +64,7 @@ class TicketController extends Controller
 
     public function index()
     {
-        $tickets = Auth::user()->tickets()
+        $tickets = Auth::user()->tickets()->limit(1)
             ->with(['match', 'payment', 'section'])
             ->latest()
             ->get();
