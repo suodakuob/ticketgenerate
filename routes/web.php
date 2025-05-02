@@ -17,8 +17,12 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ArduinoPythonController;
 use App\Http\Controllers\GeneralChatbotController;
 
-Route::get('/', [HomeController::class, 'index'])->name('home');
+// ✅ Page d'accueil du guichet avec deux boutons : Réserver un match / Voir vos tickets
+Route::get('/', function () {
+    return view('guichet');
+})->name('home');
 
+// Routes utilisateur authentifié
 Route::middleware(['auth', 'verified'])->group(function () {
     // Profil utilisateur
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -31,18 +35,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/matches/{match}/sections', [MatchController::class, 'sections'])->name('matches.sections');
 
     // Gestion des tickets
-    Route::middleware(['auth', 'verified'])->group(function () {
-        Route::get('/my-tickets', [TicketController::class, 'index'])->name('my-tickets');
-        Route::post('/tickets', [TicketController::class, 'store'])->name('tickets.store');
-        Route::get('/tickets/{ticket}/download', [TicketController::class, 'download'])
-            ->name('tickets.download')
-            ->middleware('auth');
+    Route::get('/my-tickets', [TicketController::class, 'index'])->name('my-tickets');
+    Route::post('/tickets', [TicketController::class, 'store'])->name('tickets.store');
+    Route::get('/tickets/{ticket}/download', [TicketController::class, 'download'])->name('tickets.download');
 
-        // Add this new route for purchasing tickets by section
-        Route::post('/matches/{match}/purchase', [TicketController::class, 'purchase'])->name('tickets.purchase');
-    });
-
-
+    // Achat de ticket par section
+    Route::post('/matches/{match}/purchase', [TicketController::class, 'purchase'])->name('tickets.purchase');
 });
 
 // Déconnexion
@@ -54,50 +52,50 @@ Route::post('/logout', function () {
 })->name('logout')->middleware('auth');
 
 // Routes Admin
-Route::middleware(['auth', 'admin'])->group(function () {
-    Route::prefix('admin')->group(function () {
-        Route::get('/', [DashboardController::class, 'index'])->name('admin.dashboard');
-        Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
+Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
+    Route::get('/', [DashboardController::class, 'index'])->name('admin.dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
 
-        // Gestion des matchs
-        Route::resource('matches', AdminMatchController::class)->names([
-            'index' => 'admin.matches.index',
-            'create' => 'admin.matches.create',
-            'store' => 'admin.matches.store',
-            'show' => 'admin.matches.show',
-            'edit' => 'admin.matches.edit',
-            'update' => 'admin.matches.update',
-            'destroy' => 'admin.matches.destroy',
-        ]);
+    // Gestion des matchs
+    Route::resource('matches', AdminMatchController::class)->names([
+        'index' => 'admin.matches.index',
+        'create' => 'admin.matches.create',
+        'store' => 'admin.matches.store',
+        'show' => 'admin.matches.show',
+        'edit' => 'admin.matches.edit',
+        'update' => 'admin.matches.update',
+        'destroy' => 'admin.matches.destroy',
+    ]);
 
-        // Gestion des réservations
-        Route::get('/bookings', [BookingController::class, 'index'])->name('admin.bookings.index');
+    // Gestion des réservations
+    Route::get('/bookings', [BookingController::class, 'index'])->name('admin.bookings.index');
 
-        // Gestion des utilisateurs
-        Route::resource('users', UserController::class)->names([
-            'index' => 'admin.users.index',
-            'create' => 'admin.users.create',
-            'store' => 'admin.users.store',
-            'show' => 'admin.users.show',
-            'edit' => 'admin.users.edit',
-            'update' => 'admin.users.update',
-            'destroy' => 'admin.users.destroy',
-        ])->except(['show']);
-        Route::get('users/{user}', [UserController::class, 'show'])->name('admin.users.show');
+    // Gestion des utilisateurs
+    Route::resource('users', UserController::class)->names([
+        'index' => 'admin.users.index',
+        'create' => 'admin.users.create',
+        'store' => 'admin.users.store',
+        'show' => 'admin.users.show',
+        'edit' => 'admin.users.edit',
+        'update' => 'admin.users.update',
+        'destroy' => 'admin.users.destroy',
+    ])->except(['show']);
+    Route::get('users/{user}', [UserController::class, 'show'])->name('admin.users.show');
 
-        // New section management routes
-        Route::get('/matches/{match}/sections', [App\Http\Controllers\Admin\MatchController::class, 'manageSections'])->name('admin.matches.sections');
-        Route::post('/matches/{match}/sections', [App\Http\Controllers\Admin\MatchController::class, 'storeSections'])->name('admin.matches.sections.store');
-        Route::delete('/matches/{match}/sections/{sectionId}', [App\Http\Controllers\Admin\MatchController::class, 'deleteSection'])->name('admin.matches.sections.delete');
+    // Gestion des sections
+    Route::get('/matches/{match}/sections', [AdminMatchController::class, 'manageSections'])->name('admin.matches.sections');
+    Route::post('/matches/{match}/sections', [AdminMatchController::class, 'storeSections'])->name('admin.matches.sections.store');
+    Route::delete('/matches/{match}/sections/{sectionId}', [AdminMatchController::class, 'deleteSection'])->name('admin.matches.sections.delete');
 
-        // Route for uploading 360° images
-        Route::post('/matches/{match}/sections/upload360', [App\Http\Controllers\Admin\MatchController::class, 'upload360'])->name('admin.sections.upload360');
-    });
+    // Upload images 360
+    Route::post('/matches/{match}/sections/upload360', [AdminMatchController::class, 'upload360'])->name('admin.sections.upload360');
 });
 
+// Routes chatbot
 Route::post('/chatbot/message', [ChatbotController::class, 'handle'])->name('chatbot.message');
 Route::post('/chatbot/general', [GeneralChatbotController::class, 'handle'])->name('chatbot.general');
 
+// Routes Arduino
 Route::prefix('arduino')->group(function () {
     Route::get('/ports', [ArduinoPythonController::class, 'listPorts']);
     Route::get('/connect', [ArduinoPythonController::class, 'connect']);
@@ -105,5 +103,5 @@ Route::prefix('arduino')->group(function () {
     Route::get('/disconnect', [ArduinoPythonController::class, 'disconnect']);
 });
 
-
+// Auth (login/register)
 require __DIR__.'/auth.php';

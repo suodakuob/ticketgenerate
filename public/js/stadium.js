@@ -305,7 +305,7 @@ document.addEventListener("DOMContentLoaded", function () {
             reserveButton.disabled = false;
             reserveButton.classList.remove('bg-gray-400', 'cursor-not-allowed');
             reserveButton.classList.add('bg-green-600', 'hover:bg-green-700');
-            reserveButton.textContent = `Réserver Section ${sectionData[sectionId].name}`;
+            reserveButton.textContent = `Réserver Section ${sectionId}`;
         }
     }
 
