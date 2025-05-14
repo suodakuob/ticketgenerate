@@ -1,4 +1,20 @@
-<x-app-layout>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Big Match :  {{ $match->home_team }} vs {{ $match->away_team }}</title>
+
+    {{-- ✅✅✅ C'EST LA LIGNE IMPORTANTE À AJOUTER/DÉCOMMENTER CI-DESSOUS ✅✅✅ --}}
+    {{-- Si vous utilisez Vite (configuration par défaut pour les nouveaux projets Laravel) : --}}
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+    {{-- OU, si vous n'utilisez pas Vite et avez un fichier app.css compilé dans public/css : --}}
+    {{-- <link rel="stylesheet" href="{{ asset('css/app.css') }}"> --}}
+    {{-- Assurez-vous que le chemin est correct pour votre projet --}}
+
+
+    <link rel="stylesheet" href="{{ asset('css/stadium.css') }}">
     <style>
         @keyframes spin {
             to {
@@ -16,7 +32,28 @@
         .hover\:scale-105:hover {
             transform: scale(1.05);
         }
+        /* Basic body styling if not provided by a global CSS */
+        body {
+            font-family: sans-serif; /* Example */
+            margin: 0;
+            background-color: #f7fafc; /* bg-gray-100 equivalent, sera surchargé par Tailwind si app.css est chargé */
+        }
     </style>
+</head>
+<body>
+
+    {{-- "Revenir aux matchs" button at the top --}}
+    <div style="padding-top: 1.5rem; padding-bottom: 1.5rem; padding-left: 1rem; padding-right: 1rem;">
+        <div style="max-width: 80rem; margin-left: auto; margin-right: auto;">
+             <a href="{{ route('matches.index') }}"
+               class="inline-block px-5 py-2 bg-blue-600 text-white rounded-md font-semibold shadow hover:bg-blue-700 transition"
+               style="background-color: #2563eb; color: white; padding: 0.5rem 1.25rem; border-radius: 0.375rem; font-weight: 600; box-shadow: 0 1px 2px 0 rgba(0,0,0,0.05); text-decoration: none;">
+                ⚽ Revenir aux matchs
+            </a>
+        </div>
+    </div>
+
+    {{-- Original content starts here --}}
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
@@ -249,7 +286,7 @@
         function setupModalEventListeners() {
             const modal = document.getElementById('view-360-modal');
             const closeBtn = document.getElementById('close-360-view');
-            const fullscreenBtn = document.getElementById('fullscreen-360-view');
+            const fullscreenBtn = document.getElementById('fullscreen-360-view'); // This ID was in original JS
             const vrModeBtn = document.getElementById('vr-mode-toggle');
             const viewContainer = document.getElementById('view-360-container');
 
@@ -266,14 +303,17 @@
                 }
             });
 
-            // Fullscreen toggle handler
-            fullscreenBtn.addEventListener('click', function() {
-                if (document.fullscreenElement) {
-                    document.exitFullscreen();
-                } else {
-                    viewContainer.requestFullscreen();
-                }
-            });
+            // Fullscreen toggle handler (original JS referenced fullscreen-360-view)
+            if (fullscreenBtn) { // Check if element exists, though it's not in the modal HTML
+                fullscreenBtn.addEventListener('click', function() {
+                    if (document.fullscreenElement) {
+                        document.exitFullscreen();
+                    } else {
+                        viewContainer.requestFullscreen();
+                    }
+                });
+            }
+
 
             // Close on outside click
             modal.addEventListener('click', function(e) {
@@ -370,7 +410,7 @@
         }
     </script>
 
-<script>
+    <script>
     document.addEventListener('DOMContentLoaded', function() {
         const reserveButton = document.getElementById('reserve-button');
         const paymentModal = document.getElementById('payment-modal');
@@ -450,61 +490,64 @@
     </script>
 
     <script src="{{ asset('js/stadium.js') }}"></script>
-    <link rel="stylesheet" href="{{ asset('css/stadium.css') }}">
-</x-app-layout>
 
-<!-- Add a hidden input to store selected section ID -->
-<input type="hidden" name="selected_section_id" id="selected_section_id" value="">
+    {{-- These elements were outside x-app-layout in the original structure. --}}
+    {{-- They are now placed before the closing </body> tag. --}}
+    <!-- Add a hidden input to store selected section ID -->
+    <input type="hidden" name="selected_section_id" id="selected_section_id" value="">
 
-<!-- Payment Processing Modal -->
-<div id="payment-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden items-center justify-center">
-    <div class="bg-white p-8 rounded-lg shadow-xl max-w-md w-full mx-4">
-        <!-- Processing State -->
-        <div id="processing-state" class="text-center">
-            <!-- Spinning Animation -->
-            <div class="inline-block">
-                <svg class="animate-spin h-16 w-16 text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                </svg>
+    <!-- Payment Processing Modal -->
+    <div id="payment-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden items-center justify-center">
+        <div class="bg-white p-8 rounded-lg shadow-xl max-w-md w-full mx-4">
+            <!-- Processing State -->
+            <div id="processing-state" class="text-center">
+                <!-- Spinning Animation -->
+                <div class="inline-block">
+                    <svg class="animate-spin h-16 w-16 text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                </div>
+                <div class="mt-4 space-y-3">
+                    <h2 class="text-xl font-semibold text-gray-700">Traitement du paiement</h2>
+                    <p class="text-gray-500">Veuillez patienter pendant la validation...</p>
+                    <div class="text-sm text-gray-400">Ne fermez pas cette fenêtre</div>
+                </div>
             </div>
-            <div class="mt-4 space-y-3">
-                <h2 class="text-xl font-semibold text-gray-700">Traitement du paiement</h2>
-                <p class="text-gray-500">Veuillez patienter pendant la validation...</p>
-                <div class="text-sm text-gray-400">Ne fermez pas cette fenêtre</div>
-            </div>
-        </div>
 
-        <!-- Success State (will show briefly before form submission) -->
-        <div id="success-state" class="text-center hidden">
-            <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-green-100">
-                <svg class="h-10 w-10 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                </svg>
+            <!-- Success State (will show briefly before form submission) -->
+            <div id="success-state" class="text-center hidden">
+                <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-green-100">
+                    <svg class="h-10 w-10 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                </div>
+                <div class="mt-4 space-y-3">
+                    <h2 class="text-xl font-semibold text-gray-700">Paiement réussi!</h2>
+                    <p class="text-gray-500">Redirection en cours...</p>
+                </div>
             </div>
-            <div class="mt-4 space-y-3">
-                <h2 class="text-xl font-semibold text-gray-700">Paiement réussi!</h2>
-                <p class="text-gray-500">Redirection en cours...</p>
-            </div>
-        </div>
 
-        <!-- Error State -->
-        <div id="error-state" class="text-center hidden">
-            <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-red-100">
-                <svg class="h-10 w-10 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                </svg>
-            </div>
-            <div class="mt-4 space-y-3">
-                <h2 class="text-xl font-semibold text-gray-700">Échec du paiement</h2>
-                <p class="text-gray-500">Une erreur s'est produite lors du traitement.</p>
-                <button id="error-close" class="mt-6 bg-red-500 text-white px-6 py-2 rounded-full hover:bg-red-600 transition-all duration-200 transform hover:scale-105">
-                    Réessayer
-                </button>
+            <!-- Error State -->
+            <div id="error-state" class="text-center hidden">
+                <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-red-100">
+                    <svg class="h-10 w-10 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </div>
+                <div class="mt-4 space-y-3">
+                    <h2 class="text-xl font-semibold text-gray-700">Échec du paiement</h2>
+                    <p class="text-gray-500">Une erreur s'est produite lors du traitement.</p>
+                    <button id="error-close" class="mt-6 bg-red-500 text-white px-6 py-2 rounded-full hover:bg-red-600 transition-all duration-200 transform hover:scale-105">
+                        Réessayer
+                    </button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<!-- Add this to include Alpine.js if not already included -->
-<script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <!-- Add this to include Alpine.js if not already included -->
+    <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+</body>
+</html>
