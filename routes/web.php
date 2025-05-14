@@ -37,6 +37,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Gestion des tickets
     Route::get('/my-tickets', [TicketController::class, 'index'])->name('my-tickets');
     Route::post('/tickets', [TicketController::class, 'store'])->name('tickets.store');
+    Route::get('/clear-tickets', [TicketController::class, 'clearTickets'])->name('tickets.clear');
 
     // ✅ AJOUTEZ CETTE LIGNE : Route pour afficher la page d'un ticket spécifique (votre Bloc 3)
     // Elle utilise la méthode show de votre TicketController

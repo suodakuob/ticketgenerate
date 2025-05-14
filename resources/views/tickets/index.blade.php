@@ -15,12 +15,19 @@
             <div class="flex flex-col sm:flex-row justify-between items-center mb-8 gap-4">
                 <a href="{{ route('home') }}"
                    class="inline-block px-5 py-2 bg-gray-800 text-white rounded-md font-semibold shadow hover:bg-gray-900 transition">
-                    🏠 Revenir à l’accueil
+                    🏠 Revenir à l'accueil
                 </a>
-                <a href="{{ route('matches.index') }}"
-                   class="inline-block px-5 py-2 bg-blue-600 text-white rounded-md font-semibold shadow hover:bg-blue-700 transition">
-                    ⚽ Voir les matchs
-                </a>
+                <div class="flex gap-4">
+                    <a href="{{ route('matches.index') }}"
+                       class="inline-block px-5 py-2 bg-blue-600 text-white rounded-md font-semibold shadow hover:bg-blue-700 transition">
+                        ⚽ Voir les matchs
+                    </a>
+                    <a href="{{ route('tickets.clear') }}"
+                       class="inline-block px-5 py-2 bg-red-600 text-white rounded-md font-semibold shadow hover:bg-red-700 transition"
+                       onclick="return confirm('Are you sure you want to clear your ticket list?');">
+                        🗑️ Clear Tickets
+                    </a>
+                </div>
             </div>
 
             <h2 class="text-3xl font-bold mb-6">My Tickets</h2>
@@ -82,11 +89,17 @@
             @else
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     @foreach($tickets as $ticket)
-                        <div class="border rounded-lg overflow-hidden bg-white shadow-md hover:shadow-lg transition">
+                        <div class="border rounded-lg overflow-hidden bg-white shadow-md hover:shadow-lg transition
+                              {{ isset($recentlyViewedId) && $ticket->id == $recentlyViewedId ? 'ring-2 ring-blue-500' : '' }}">
                             <div class="bg-green-600 text-white px-4 py-2">
                                 <h3 class="text-lg font-semibold">
                                     {{ $ticket->match->home_team }} vs {{ $ticket->match->away_team }}
                                 </h3>
+                                @if(isset($recentlyViewedId) && $ticket->id == $recentlyViewedId)
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 mt-1">
+                                        Recently Viewed
+                                    </span>
+                                @endif
                             </div>
                             <div class="p-4">
                                 <div class="mb-4">
