@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\TicketController;
+use App\Http\Controllers\TicketController; // Assurez-vous que cette ligne est bien là
 use App\Http\Controllers\MatchController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\UserController;
@@ -37,10 +37,22 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Gestion des tickets
     Route::get('/my-tickets', [TicketController::class, 'index'])->name('my-tickets');
     Route::post('/tickets', [TicketController::class, 'store'])->name('tickets.store');
+
+    // ✅ AJOUTEZ CETTE LIGNE : Route pour afficher la page d'un ticket spécifique (votre Bloc 3)
+    // Elle utilise la méthode show de votre TicketController
+    Route::get('/tickets/{ticket}', [TicketController::class, 'show'])->name('tickets.show');
+
+    // La route de téléchargement reste nécessaire car la page d'affichage (Bloc 3) l'utilise dans l'iframe
     Route::get('/tickets/{ticket}/download', [TicketController::class, 'download'])->name('tickets.download');
 
-    // Achat de ticket par section
+
+    // Achat de ticket par section (votre méthode purchase existante)
     Route::post('/matches/{match}/purchase', [TicketController::class, 'purchase'])->name('tickets.purchase');
+
+    // Votre méthode create (qui semble aussi créer un ticket et redirige vers tickets.show)
+    // Si cette route est utilisée, elle peut rester telle quelle ou être intégrée dans 'purchase' si c'est le même flow.
+    // Si elle est appelée par un GET, il faudrait l'ajuster ou s'assurer qu'elle n'est appelée qu'après une sélection.
+    // Route::get('/matches/{match}/create-ticket', [TicketController::class, 'create'])->name('tickets.create'); // Exemple si create était appelée par GET
 });
 
 // Déconnexion
@@ -81,6 +93,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
         'destroy' => 'admin.users.destroy',
     ])->except(['show']);
     Route::get('users/{user}', [UserController::class, 'show'])->name('admin.users.show');
+
 
     // Gestion des sections
     Route::get('/matches/{match}/sections', [AdminMatchController::class, 'manageSections'])->name('admin.matches.sections');

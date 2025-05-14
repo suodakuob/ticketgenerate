@@ -335,7 +335,7 @@
              }
              pannellumViewerElement.innerHTML = ''; // Clear DOM content
 
-            modalTitle.textContent = `360° View - ${sectionName}`;
+            modalTitle.textContent = 360° View - ${sectionName};
 
 
              // Check if URL is an image likely for Pannellum or simple viewer
@@ -560,7 +560,7 @@
 
         function updateImageTransform() {
              if (imageElement) {
-                 imageElement.style.transform = `translate(${imageTranslateX}px, ${imageTranslateY}px) scale(${imageScale})`;
+                 imageElement.style.transform = translate(${imageTranslateX}px, ${imageTranslateY}px) scale(${imageScale});
                   // Update cursor based on state
                   if (!isImageDragging) {
                        if (imageScale > 1.01 || Math.abs(imageTranslateX) > 5 || Math.abs(imageTranslateY) > 5) { // Threshold for showing grab cursor
@@ -622,7 +622,7 @@
                      return;
                  }
                   if (window.sectionData && window.sectionData[sectionId] && quantity > window.sectionData[sectionId].available_seats) {
-                      alert(`Il n'y a que ${window.sectionData[sectionId].available_seats} billets disponibles pour cette section.`);
+                      alert(Il n'y a que ${window.sectionData[sectionId].available_seats} billets disponibles pour cette section.);
                       return;
                   }
 
@@ -644,7 +644,7 @@
                 .then(response => {
                      if (!response.ok) {
                          // Handle HTTP errors (e.g., 404, 500)
-                         throw new Error(`HTTP error! status: ${response.status}`);
+                         throw new Error(HTTP error! status: ${response.status});
                      }
                      return response.json();
                  })

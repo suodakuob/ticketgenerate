@@ -41,6 +41,8 @@
 
         </div>
     </div>
+    <x-chatbot-widget />
+        <x-general-chatbot-widget />
 
 </body>
 </html>
